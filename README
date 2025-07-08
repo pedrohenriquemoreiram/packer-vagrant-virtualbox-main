@@ -47,6 +47,50 @@ O backend da aplicação foi implementado com **FastAPI**, framework moderno e l
 
 ### Como executar localmente
 
+
+
+
 1. Entre na pasta do backend:
 ```bash
 cd app
+
+## 🌐 Acessando o ArgoCD
+
+1. Realize o port-forward do serviço:
+```bash
+kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443
+```
+
+2. Acesse o painel no navegador:
+```
+http://localhost:8080
+```
+
+3. Login:
+- Usuário: `admin`
+- Senha: `minhanovasenha` *(ou a senha customizada definida com htpasswd)*
+
+---
+
+## 🔁 Deploy automático com ArgoCD
+
+A aplicação GitOps é configurada em `k8s/app/app-argocd.yaml`, que aponta para este repositório e sincroniza automaticamente as pastas com os manifests de backend, frontend e banco de dados.
+
+```yaml
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+```
+
+---
+
+## 📌 Tecnologias Utilizadas
+
+- Vagrant
+- Ansible
+- Docker
+- Kubernetes (Kind)
+- ArgoCD
+- FastAPI
+- PostgreSQL
