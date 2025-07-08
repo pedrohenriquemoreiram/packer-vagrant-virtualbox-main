@@ -1,0 +1,38 @@
+---
+
+## 🛠 Etapas Executadas
+
+### ✅ 1. Provisionamento Automatizado
+Com Vagrant + Ansible:
+
+- `Vagrantfile` cria VM Debian
+- Ansible instala dependências com playbooks:
+  - Docker
+  - Kubectl
+  - Kind
+  - ArgoCD
+  - Nginx (teste)
+
+### ✅ 2. Criação do Cluster Kubernetes
+Cluster criado com **Kind**, verificado via `kubectl get nodes`.
+
+### ✅ 3. Instalação do ArgoCD
+Realizada via Ansible (`install_argocd.yml`), utilizando manifesto oficial do projeto.
+
+### ✅ 4. Deploy da Aplicação (em progresso)
+YAMLs criados em `k8s/` para `deployment`, `service`, e `pod` — prontos para GitOps com ArgoCD.
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+```bash
+# Subir VM
+vagrant up
+
+# Executar playbooks Ansible (exemplo)
+cd packer-vagrant-virtualbox-main/ansible
+ansible-playbook -i hosts install_docker.yml
+ansible-playbook -i hosts install_kubectl.yml
+ansible-playbook -i hosts install_kind.yml
+ansible-playbook -i hosts install_argocd.yml
