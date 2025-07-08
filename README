@@ -36,3 +36,17 @@ ansible-playbook -i hosts install_docker.yml
 ansible-playbook -i hosts install_kubectl.yml
 ansible-playbook -i hosts install_kind.yml
 ansible-playbook -i hosts install_argocd.yml
+
+## 🧠 Backend com FastAPI
+
+O backend da aplicação foi implementado com **FastAPI**, framework moderno e leve para construção de APIs REST em Python.
+
+### Funcionalidades implementadas:
+- `GET /ping`: retorna uma mensagem de teste ("pong") para verificação da API.
+- `GET /db`: tenta conexão com um banco de dados PostgreSQL.
+
+### Como executar localmente
+
+1. Entre na pasta do backend:
+```bash
+cd app
