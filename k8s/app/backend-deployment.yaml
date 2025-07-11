@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: pedrohenriquemoreiram/backend:latest # ← você pode trocar pelo seu nome de usuário ou usar build local
+        image: pedrohenriquesc/backend:latest # ← você pode trocar pelo seu nome de usuário ou usar build local
         ports:
         - containerPort: 8000
         env:
