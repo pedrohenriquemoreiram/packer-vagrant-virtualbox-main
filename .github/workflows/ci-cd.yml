@@ -29,8 +29,8 @@ jobs:
           context: .
           push: true
           tags: |
-            eduardosilvasc/hello-fastapi-k8s:latest
-            eduardosilvasc/hello-fastapi-k8s:${{ github.sha }}
+            pedrohenriquemoreiram/packer-vagrant-virtualbox-main.git
+            pedrohenriquemoreiram/packer-vagrant-virtualbox-main.git:${{ github.sha }}
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v2
@@ -38,7 +38,7 @@ jobs:
       - name: Update kustomization.yaml
         run: |
           cd k8s
-          kustomize edit set image hello-fastapi=eduardosilvasc/hello-fastapi-k8s:$GITHUB_SHA
+          kustomize edit set image packer-vagrant-virtualbox-main=pedrohenriquemoreiram/packer-vagrant-virtualbox-main.git:$GITHUB_SHA
 
       - name: Commit changes
         run: |
