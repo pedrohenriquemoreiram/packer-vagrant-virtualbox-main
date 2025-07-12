@@ -21,7 +21,6 @@
             - role: worker
             - role: worker
     - name: Criar o cluster com Kind
-      become_user: vagrant
       command: >
         kind create cluster
         --config ./kind/config.yaml

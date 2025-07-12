@@ -1,1 +1,4 @@
 .venv/
+packer
+vagrant
+debian12.box

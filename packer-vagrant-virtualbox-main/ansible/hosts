@@ -1,5 +1,5 @@
 [webservers]
-webserver1 ansible_host=192.168.1.47
+webserver1 ansible_host=191.52.55.247
 
 [all:vars]
 ansible_ssh_private_key_file=/home/pedropc/.ssh/id_ed25519
