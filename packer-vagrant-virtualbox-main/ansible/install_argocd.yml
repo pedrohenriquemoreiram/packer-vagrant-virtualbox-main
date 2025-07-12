@@ -1,17 +1,29 @@
 ---
-- name: Instalando o ArgoCD
+- name: Instalando o Argocd
   hosts: webservers
   become: yes
 
   tasks:
-    - name: Criar namespace do ArgoCD
-      ansible.builtin.shell: |
-        kubectl create namespace argocd || true
+  - name: Criando o Namespace
+    command: >
+      kubectl create namespace argocd
 
-    - name: Instalar ArgoCD via manifesto oficial
-      ansible.builtin.shell: |
-        kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  - name: Instalando o Argocd
+    command: >
+      kubectl apply 
+      -n argocd 
+      -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  
+  - name: Espera o Argocd Executar
+    command: >
+      kubectl wait
+      --for=condition=available
+      --timeout=180s deployment 
+      --all
+      -n argocd
 
-    - name: Aguardar ArgoCD estar disponível
-      ansible.builtin.shell: |
-        kubectl wait --for=condition=available --timeout=180s deployment --all -n argocd
+  - name: Expondo as portas
+    command: >
+      kubectl port-forward svc/argocd-server 
+      -n argocd 
+      --address 0.0.0.0 8080:443
