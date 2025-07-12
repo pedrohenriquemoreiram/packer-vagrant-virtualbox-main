@@ -20,20 +20,17 @@
       "boot_wait": "5s",
       "boot_command": [
         "<esc><wait>",
-        "auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-        "debian-installer=en_US auto locale=pt_BR ",
+        "/install.amd/vmlinuz auto=true priority=critical interface=auto ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US locale=pt_BR ",
         "kbd-chooser/method=us ",
-        "hostname={{user `vm_name`}} ",
         "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/layout=Brazilian ",
-        "keyboard-configuration/variant=Brazilian<enter>"
+        "initrd=/install.amd/initrd.gz --<enter>"
       ],
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "2048"],
         ["modifyvm", "{{.Name}}", "--cpus", "2"],
-
         ["modifyvm", "{{.Name}}", "--nic1", "nat"],
-        ["modifyvm", "{{.Name}}", "--nictype1", "82540EM"],
         ["modifyvm", "{{.Name}}", "--cableconnected1", "on"]
       ]
     }
@@ -43,12 +40,9 @@
       "type": "shell",
       "inline": [
         "echo 'Provisionando como vagrant...'",
-        "echo 'auto enp0s8' | sudo tee -a /etc/network/interfaces",
-        "echo 'iface enp0s8 inet dhcp' | sudo tee -a /etc/network/interfaces",
         "mkdir -p /home/vagrant/.ssh",
         "chmod 700 /home/vagrant/.ssh",
         "curl -fsSL https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant.pub -o /home/vagrant/.ssh/authorized_keys",
-        "cat /home/vagrant/.ssh/authorized_keys",
         "chmod 600 /home/vagrant/.ssh/authorized_keys",
         "chown -R vagrant:vagrant /home/vagrant/.ssh"
       ]
